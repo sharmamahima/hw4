@@ -1,27 +1,29 @@
-<h1>New Entry</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">New Entry</h1>
 
-<%= form_with model: Entry.new, local: true do |form| %>
-  <%= form.hidden_field :place_id, value: params[:place_id] %>
+  <%= form_with model: Entry.new, local: true, class: 'needs-validation', novalidate: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :title, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control', required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :description, class: 'form-label' %>
+      <%= form.text_area :description, class: 'form-control', rows: 3, required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :occurred_on, "Occurred On", class: 'form-label' %>
+      <%= form.date_field :occurred_on, class: 'form-control', required: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :occurred_on, "Occurred On" %>
-    <%= form.date_field :occurred_on %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :image, class: 'form-label' %>
+      <%= form.file_field :image, accept: "image/png,image/jpg,image/jpeg,image/gif", class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :image, "Image (optional)" %>
-    <%= form.file_field :image %>
-  </div>
+    <%= form.hidden_field :place_id, value: params[:place_id] %>
 
-  <%= form.submit "Save" %>
-<% end %>
+    <%= form.submit "Save", class: 'btn btn-primary' %>
+  <% end %>
+</div>

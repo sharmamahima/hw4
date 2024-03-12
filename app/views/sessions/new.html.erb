@@ -1,21 +1,27 @@
-<h1>Login</h1>
+<div class="container mt-5"> <!-- Center the form in a container and add some top margin -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="mb-4 text-center">Login</h1>
+      
+      <%= form_with scope: :session, url: sessions_path, local: true, class: 'needs-validation', novalidate: true do |form| %>
+        <% if flash[:alert] %>
+          <div class="alert alert-danger"><%= flash[:alert] %></div> <!-- Use Bootstrap's alert class for styling -->
+        <% end %>
 
-<%= form_with scope: :session, url: sessions_path, local: true do |form| %>
-  <% if flash[:alert] %>
-    <div class="alert"><%= flash[:alert] %></div>
-  <% end %>
+        <div class="mb-3"> <!-- Add bottom margin for spacing between form fields -->
+          <%= form.label :email, class: 'form-label' %>
+          <%= form.email_field :email, required: true, autofocus: true, class: 'form-control' %>
+        </div>
 
-  <div class="field">
-    <%= form.label :email %><br>
-    <%= form.email_field :email, required: true, autofocus: true %>
+        <div class="mb-3">
+          <%= form.label :password, class: 'form-label' %>
+          <%= form.password_field :password, required: true, class: 'form-control' %>
+        </div>
+
+        <div class="d-grid gap-2"> <!-- Use Bootstrap's grid system for the button to expand to full width of its parent -->
+          <%= form.submit "Login", class: 'btn btn-primary btn-lg' %> <!-- Make the button large and primary-colored -->
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :password %><br>
-    <%= form.password_field :password, required: true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Login" %>
-  </div>
-<% end %>
+</div>

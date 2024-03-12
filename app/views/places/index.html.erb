@@ -1,11 +1,11 @@
-<h1>Places</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">Places</h1>
 
-<ul>
-  <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
-  <% end %>
-</ul>
+  <div class="list-group mb-3">
+    <% @places.each do |place| %>
+      <%= link_to place["name"], place_path(place), class: "list-group-item list-group-item-action" %>
+    <% end %>
+  </div>
 
-<p>
-  <a href="/places/new">New place</a>
-</p>
+  <%= link_to 'New Place', new_place_path, class: "btn btn-primary", role: "button" %>
+</div>

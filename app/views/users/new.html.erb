@@ -1,36 +1,38 @@
-<h1>New User Account</h1>
+<div class="my-4 px-4 py-3 border rounded"> <!-- Enhance form area with padding, border, and rounded corners -->
+  <h1 class="mb-4">New User Account</h1>
 
-<% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger" id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= form_with model: @user, local: true do |form| %>
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
-  </div>
+  <%= form_with model: @user, local: true, class: 'needs-validation', novalidate: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :username, class: 'form-label' %>
+      <%= form.text_field :username, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :email, class: 'form-label' %>
+      <%= form.email_field :email, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :password, class: 'form-label' %>
+      <%= form.password_field :password, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :password_confirmation, "Confirm Password" %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+    <div class="mb-4"> <!-- Increase bottom margin for the last input for better visual separation from the button -->
+      <%= form.label :password_confirmation, "Confirm Password", class: 'form-label' %>
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
+    </div>
 
-  <%= form.submit "Signup" %>
-<% end %>
+    <%= form.submit "Signup", class: 'btn btn-primary btn-lg mt-2' %> <!-- Use btn-primary for a more prominent button and add top margin -->
+  <% end %>
+</div>
