@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Tacostagram Final</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <link rel="stylesheet" href="/stylesheets/application.css">
-  </head>
-
-  <body>
-    <div>
-      <%= flash["notice"] %>
-    </div>
-    <div>
+<head>
+  <title>Tacostagram Final</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link rel="stylesheet" href="/stylesheets/application.css">
+</head>
+<body>
+<div>
+  <%= flash.notice %>
+  <%= flash.alert %>
+</div>
+<table width="100%">
+  <tr>
+    <td>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
-    </div>
+    </td>
+    <td align="right">
+      <% if session[:user_id] %>
+        <span>Logged in as: <%= User.find(session[:user_id]).username %></span>
+        <%= form_with url: logout_path, method: :delete, local: true do |form| %>
+          <%= form.submit "Logout", style: "display: inline; margin-left: 10px;" %>
+        <% end %>
+      <% else %>
+        <%= link_to 'Login', login_path %> |
+        <%= link_to 'Signup', signup_path %>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
-    <%= yield %>
-  </body>
+<%= yield %>
+</body>
 </html>

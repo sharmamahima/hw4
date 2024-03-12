@@ -1,16 +1,29 @@
-<h1><%= @place["name"] %></h1>
+<h1><%= @place.name %></h1>
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
+<% if session[:user_id].present? %>
+  <h2>My Entries</h2>
+  <% if @entries.any? %>
+    <% @entries.each do |entry| %>
+      <div>
+        <h3><%= entry.title %></h3>
+        <p><%= entry.description %></p>
+        <p>Occurred on: <%= entry.occurred_on %></p>
+        <% if entry.image.attached? %>
+          <%= image_tag(entry.image, class: "entry-image", style: "max-width: 200px; max-height: 200px;") %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>You have no entries for this place.</p>
+  <% end %>
+  
+  <!-- Link to add a new entry for this place -->
+  <%= link_to 'Add New Entry', new_entry_path(place_id: @place.id), class: "btn btn-primary" %>
+  
+<% else %>
+  <p>You need to <%= link_to 'login', login_path %> to view your entries.</p>
 <% end %>
 
 <p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
-
-<p>
-  <a href="/places">Back to All Places</a>
+  <%= link_to 'Back to All Places', places_path %>
 </p>

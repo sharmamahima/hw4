@@ -1,6 +1,21 @@
 <h1>Login</h1>
 
-<form action="/sessions" method="post">
+<%= form_with scope: :session, url: sessions_path, local: true do |form| %>
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <% end %>
 
-  <button>Login<button>
-</form>
+  <div class="field">
+    <%= form.label :email %><br>
+    <%= form.email_field :email, required: true, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %><br>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Login" %>
+  </div>
+<% end %>
